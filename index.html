@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<!-- GitHub Pages ready: upload this file as index.html in your repository root. Use lowercase, no spaces in asset filenames. -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Mukesh Thatipamula Data Analyst Portfolio - Power BI dashboards, SQL, Excel, Python, and analytics projects."/>
+  <title>Mukesh | Data Analyst Portfolio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+
+    body {
+      font-family:'Outfit',sans-serif;
+      background:#0f1117;
+      color:white;
+      overflow-x:hidden;
+    }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      width:100%; padding:20px 8%;
+      display:flex; justify-content:space-between; align-items:center;
+      position:fixed; top:0; z-index:1000;
+      background:rgba(15,17,23,0.92);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(108,99,255,0.12);
+    }
+    .logo { font-size:26px; font-weight:700; color:#fff; }
+    nav a {
+      margin-left:28px; color:#bbb; text-decoration:none;
+      font-size:15px; transition:color 0.3s;
+    }
+    nav a:hover { color:#6c63ff; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height:100vh;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:120px 8% 80px;
+      gap:50px;
+      background:radial-gradient(ellipse at 70% 50%, rgba(108,99,255,0.07) 0%, transparent 65%);
+    }
+    .hero-content { flex:1; }
+    .intro { color:#6c63ff; margin-bottom:16px; letter-spacing:2px; font-size:14px; }
+    .hero h1 { font-size:clamp(44px,6vw,70px); line-height:1.1; margin-bottom:22px; }
+    .hero h1 span { color:#6c63ff; }
+    .description { color:#aaa; line-height:1.8; max-width:540px; margin-bottom:32px; }
+    .buttons { display:flex; gap:18px; flex-wrap:wrap; }
+    .btn-primary, .btn-secondary {
+      padding:14px 28px; border-radius:10px;
+      text-decoration:none; transition:0.3s; font-weight:500; font-size:15px;
+    }
+    .btn-primary { background:#6c63ff; color:white; }
+    .btn-primary:hover { transform:translateY(-3px); box-shadow:0 10px 30px rgba(108,99,255,0.35); }
+    .btn-secondary{
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: #ffffff;
+      padding: 16px 42px;
+      border-radius: 18px;
+      font-size: 18px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.35s ease;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 0 rgba(108,99,255,0);
+    }
+    .btn-secondary:hover{
+      transform: translateY(-3px);
+      border-color: #6c63ff;
+      box-shadow:
+        0 0 25px rgba(108,99,255,0.25),
+        0 0 50px rgba(108,99,255,0.12);
+      background: rgba(108,99,255,0.08);
+    }
+
+    .hero-image img {
+      width:400px; max-width:100%; border-radius:28px;
+      object-fit:cover; display:block;
+      box-shadow:0 20px 60px rgba(108,99,255,0.22);
+      border:2px solid rgba(108,99,255,0.3);
+      transition:0.4s ease;
+    }
+    .hero-image img:hover { transform:translateY(-6px) scale(1.02); box-shadow:0 30px 70px rgba(108,99,255,0.32); }
+
+    /* ── SECTIONS ── */
+    section { padding:90px 8%; }
+
+    .section-title p { color:#6c63ff; margin-bottom:8px; letter-spacing:2px; font-size:13px; }
+    .section-title h2 { font-size:clamp(30px,4vw,42px); margin-bottom:48px; }
+
+    /* ── ABOUT ── */
+    .about-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:22px; }
+    .about-card { background:#181b23; padding:32px; border-radius:18px; transition:0.3s; border:1px solid rgba(255,255,255,0.04); }
+    .about-card:hover { transform:translateY(-5px); border-color:rgba(108,99,255,0.2); }
+    .about-card h3 { margin-bottom:14px; color:#6c63ff; }
+    .about-card p { color:#bbb; line-height:1.7; }
+
+    /* ── SKILLS ── */
+    .skills-grid { display:flex; flex-wrap:wrap; gap:14px; }
+    .skill-box {
+      background:#181b23; border:1px solid rgba(108,99,255,0.15);
+      border-radius:10px; padding:12px 22px; font-size:14px;
+      transition:0.3s; cursor:default;
+    }
+    .skill-box:hover { background:#6c63ff; border-color:#6c63ff; transform:translateY(-2px); }
+
+    /* ── PROJECTS ── */
+    .project-grid { display:flex; flex-direction:column; gap:48px; }
+
+    .project-card {
+      background:#181b23;
+      border-radius:22px;
+      border:1px solid rgba(255,255,255,0.05);
+      overflow:hidden;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      transition:0.3s;
+    }
+    .project-card:hover { border-color:rgba(108,99,255,0.3); box-shadow:0 16px 48px rgba(0,0,0,0.3); }
+    @media(max-width:900px){ .project-card { grid-template-columns:1fr; } }
+
+    /* live dashboard preview pane */
+    .project-preview-wrap {
+      position:relative;
+      background:#111318;
+      min-height:380px;
+      overflow:hidden;
+    }
+    .preview-badge {
+      position:absolute; top:14px; left:14px; z-index:10;
+      background:#6c63ff; color:white; font-size:10px; font-weight:600;
+      letter-spacing:1px; padding:5px 12px; border-radius:20px;
+      pointer-events:none;
+    }
+    .project-preview {
+      width:100%; height:100%; min-height:380px;
+      border:none; display:block;
+      transform-origin:top left;
+    }
+
+    /* static image preview pane */
+    .project-img-wrap {
+      position:relative; overflow:hidden; min-height:280px;
+      background:#111318; display:flex; align-items:center; justify-content:center;
+    }
+    .project-img-wrap img {
+      width:100%; height:100%; object-fit:cover; display:block;
+      transition:transform 0.4s;
+    }
+    .project-card:hover .project-img-wrap img { transform:scale(1.04); }
+
+    /* content pane */
+    .project-content { padding:36px 32px; display:flex; flex-direction:column; justify-content:center; gap:14px; }
+    .project-tag { color:#6c63ff; font-size:12px; letter-spacing:1px; }
+    .project-content h3 { font-size:22px; font-weight:600; line-height:1.35; }
+    .project-content p { color:#bbb; line-height:1.75; font-size:15px; }
+    .project-metrics { display:flex; flex-wrap:wrap; gap:10px; margin-top:4px; }
+    .project-metrics span {
+      background:#0f1117; border:1px solid rgba(108,99,255,0.2);
+      padding:6px 14px; border-radius:20px; font-size:12px; color:#9ca3af;
+    }
+    .project-links { display:flex; gap:16px; flex-wrap:wrap; margin-top:8px; }
+    .project-links a {
+      color:#6c63ff; text-decoration:none; font-weight:500;
+      font-size:14px; transition:0.2s;
+    }
+    .project-links a:hover { color:#fff; }
+    .project-links a.secondary { color:#888; }
+    .project-links a.secondary:hover { color:#6c63ff; }
+
+    /* ── NIFTY INLINE DASHBOARD ── */
+    /* The dashboard is embedded directly in the page below */
+    .nifty-fullview {
+      width:100%; border-radius:16px; overflow:hidden;
+      border:1px solid rgba(108,99,255,0.2);
+      box-shadow:0 8px 40px rgba(0,0,0,0.3);
+    }
+
+
+
+    /* ── FIXED PROJECT DASHBOARD PREVIEWS ── */
+    .dashboard-mini {
+      position:relative;
+      width:100%;
+      min-height:380px;
+      padding:46px 18px 18px;
+      background:linear-gradient(145deg,#0f1117,#151924);
+      overflow:hidden;
+    }
+    .dashboard-mini::before {
+      content:"";
+      position:absolute;
+      inset:-40% -20% auto auto;
+      width:260px;
+      height:260px;
+      border-radius:50%;
+      background:rgba(108,99,255,.14);
+      filter:blur(8px);
+    }
+    .mini-topbar { position:relative; display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
+    .mini-title { font-size:15px; font-weight:700; color:#fff; }
+    .mini-pill { font-size:10px; color:#b8b8b8; border:1px solid rgba(255,255,255,.12); padding:5px 10px; border-radius:999px; }
+    .mini-kpis { position:relative; display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:12px; }
+    .mini-kpi { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:12px; }
+    .mini-kpi small { display:block; color:#9ca3af; font-size:10px; margin-bottom:6px; }
+    .mini-kpi strong { color:#fff; font-size:18px; }
+    .mini-chart-grid { position:relative; display:grid; grid-template-columns:1.25fr .75fr; gap:12px; }
+    .mini-chart, .mini-list { background:rgba(255,255,255,.055); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:14px; min-height:158px; }
+    .bar-row { display:flex; align-items:center; gap:8px; margin:9px 0; color:#b8b8b8; font-size:11px; }
+    .bar-row span:first-child { width:58px; }
+    .bar-track { flex:1; height:8px; background:#252a36; border-radius:999px; overflow:hidden; }
+    .bar-fill { height:100%; border-radius:999px; background:#6c63ff; }
+    .mini-line { width:100%; height:112px; }
+    .mini-list h4, .mini-chart h4 { color:#fff; font-size:12px; margin-bottom:10px; }
+    .mini-list p { color:#9ca3af; font-size:11px; line-height:1.55; margin-bottom:8px; }
+    .project-img-wrap.has-fallback { padding:0; min-height:380px; }
+    @media(max-width:600px){
+      .mini-kpis,.mini-chart-grid{grid-template-columns:1fr;}
+      .buttons{width:100%;}
+      .btn-primary,.btn-secondary{width:100%;text-align:center;}
+      .btn-secondary{padding:16px 28px;font-size:17px;}
+    }
+
+    /* ── CONTACT ── */
+    .contact-container { max-width:600px; }
+    .contact-container input,
+    .contact-container textarea {
+      width:100%; padding:14px 18px;
+      background:#181b23; border:1px solid #2c2f3a;
+      border-radius:10px; color:white; margin-bottom:16px;
+      font-family:'Outfit',sans-serif; font-size:15px; outline:none;
+      transition:border-color 0.3s;
+    }
+    .contact-container input:focus,
+    .contact-container textarea:focus { border-color:#6c63ff; }
+    .contact-container button {
+      background:#6c63ff; color:white; border:none; cursor:pointer;
+      padding:14px 32px; border-radius:10px; font-size:16px; font-weight:500;
+      font-family:'Outfit',sans-serif; transition:0.3s;
+    }
+    .contact-container button:hover { background:#5a52e0; transform:translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align:center; padding:30px;
+      color:#555; border-top:1px solid #1e222e;
+      font-size:14px;
+    }
+
+    /* ── SCROLL ANIMATION ── */
+    .fade-in { opacity:0; transform:translateY(30px); transition:opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity:1; transform:translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════ NAVBAR ═══════════════ -->
+<div class="navbar">
+  <div class="logo">Mukesh</div>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</div>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero" id="home">
+  <div class="hero-content fade-in">
+    <p class="intro">DATA ANALYST & DASHBOARD DEVELOPER</p>
+    <h1>Hi, I'm <span>Mukesh</span><br>Thatipamula</h1>
+    <p class="description">
+      Transforming raw data into compelling visual stories. Specialising in Power BI, SQL, Python,
+      and interactive dashboard design — turning complex datasets into actionable business insights.
+    </p>
+    <div class="buttons">
+      <a href="#projects" class="btn-primary">View My Work</a>
+      <a href="#contact" class="btn-secondary">Contact Me</a>
+    </div>
+  </div>
+  <div class="hero-image fade-in">
+    <!-- Replace profile.jpg with your actual photo filename in GitHub repo -->
+    <img src="profile.jpg"
+         onerror="this.style.display='none'"
+         alt="Mukesh Thatipamula">
+  </div>
+</section>
+
+<!-- ═══════════════ ABOUT ═══════════════ -->
+<section class="about" id="about">
+  <div class="section-title fade-in">
+    <p>ABOUT ME</p>
+    <h2>Data Analyst With Dashboard Expertise</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-card fade-in">
+      <h3>Experience</h3>
+      <p>Worked as Data Coordinator &amp; Support Executive handling Ceipal, Beeline, workflow monitoring, dashboard tracking, reporting, and operational analytics.</p>
+    </div>
+    <div class="about-card fade-in">
+      <h3>Education</h3>
+      <p>Bachelor of Technology in Computer Science &amp; Data Science Engineering.</p>
+    </div>
+    <div class="about-card fade-in">
+      <h3>Career Goal</h3>
+      <p>To grow as a Cloud Engineer with strong analytical skills, designing scalable cloud solutions and transforming data into actionable insights.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ SKILLS ═══════════════ -->
+<section class="skills" id="skills">
+  <div class="section-title fade-in">
+    <p>SKILLS</p>
+    <h2>Technical Expertise</h2>
+  </div>
+  <div class="skills-grid fade-in">
+    <div class="skill-box">Power BI</div>
+    <div class="skill-box">SQL</div>
+    <div class="skill-box">Advanced Excel</div>
+    <div class="skill-box">Data Visualization</div>
+    <div class="skill-box">Dashboard Design</div>
+    <div class="skill-box">Python</div>
+    <div class="skill-box">ETL</div>
+    <div class="skill-box">Business Analytics</div>
+    <div class="skill-box">Ceipal VMS</div>
+    <div class="skill-box">Data Cleaning</div>
+    <div class="skill-box">Chart.js</div>
+    <div class="skill-box">HTML / CSS / JS</div>
+  </div>
+</section>
+
+<!-- ═══════════════ PROJECTS ═══════════════ -->
+<section class="projects" id="projects">
+  <div class="section-title fade-in">
+    <p>PORTFOLIO</p>
+    <h2>Featured Dashboard Projects</h2>
+  </div>
+
+  <div class="project-grid">
+
+    <!-- ── PROJECT 1: NIFTY 50 ── -->
+    <div class="project-card fade-in">
+      <div class="project-preview-wrap">
+        <span class="preview-badge">LIVE DASHBOARD</span>
+        <div class="dashboard-mini">
+          <div class="mini-topbar"><div class="mini-title">NIFTY 50 Intelligence</div><div class="mini-pill">Market Analytics</div></div>
+          <div class="mini-kpis">
+            <div class="mini-kpi"><small>NIFTY 50</small><strong>22,419</strong></div>
+            <div class="mini-kpi"><small>Sentiment</small><strong>Bullish</strong></div>
+            <div class="mini-kpi"><small>Target</small><strong>25,800</strong></div>
+          </div>
+          <div class="mini-chart-grid">
+            <div class="mini-chart">
+              <h4>20-Year Index Trend</h4>
+              <svg class="mini-line" viewBox="0 0 420 120" preserveAspectRatio="none">
+                <polyline points="0,96 42,102 84,88 126,72 168,82 210,48 252,52 294,35 336,40 378,24 420,18" fill="none" stroke="#6c63ff" stroke-width="4"/>
+                <polyline points="0,116 420,116" stroke="rgba(255,255,255,.12)"/>
+              </svg>
+            </div>
+            <div class="mini-list">
+              <h4>Views</h4>
+              <p>Executive Overview</p><p>Risk &amp; Volatility</p><p>Forecast Insights</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="project-content">
+        <span class="project-tag">HTML • Chart.js • Market Analytics</span>
+        <h3>NIFTY 50 Premium Market Intelligence Dashboard</h3>
+        <p>A full-featured stock market intelligence dashboard analysing NIFTY 50 performance across Executive Overview, Stock Performance, Risk &amp; Volatility, Portfolio Watchlist, and Forecast &amp; Insights.</p>
+        <div class="project-metrics"><span>20-Year Data</span><span>Risk-Return Matrix</span><span>Bull/Bear Forecast</span><span>Sector Watchlist</span><span>India VIX</span></div>
+        <div class="project-links"><a href="#nifty-fullview">Full Dashboard ↓</a><a class="secondary" href="nifty50_premium_dashboard.html">Open Standalone →</a></div>
+      </div>
+    </div>
+
+    <!-- ── PROJECT 2: Agri Dashboard ── -->
+    <div class="project-card fade-in">
+      <div class="project-preview-wrap">
+        <span class="preview-badge">LIVE DASHBOARD</span>
+        <div class="dashboard-mini">
+          <div class="mini-topbar"><div class="mini-title">Agri Dashboard</div><div class="mini-pill">Karnataka Analytics</div></div>
+          <div class="mini-kpis">
+            <div class="mini-kpi"><small>Yield</small><strong>+18%</strong></div>
+            <div class="mini-kpi"><small>Rainfall</small><strong>824mm</strong></div>
+            <div class="mini-kpi"><small>Crops</small><strong>12</strong></div>
+          </div>
+          <div class="mini-chart-grid">
+            <div class="mini-chart">
+              <h4>Crop Category Analysis</h4>
+              <div class="bar-row"><span>Cereals</span><div class="bar-track"><div class="bar-fill" style="width:82%;background:#00c896"></div></div></div>
+              <div class="bar-row"><span>Pulses</span><div class="bar-track"><div class="bar-fill" style="width:64%;background:#f5a623"></div></div></div>
+              <div class="bar-row"><span>Oilseeds</span><div class="bar-track"><div class="bar-fill" style="width:54%;background:#6c63ff"></div></div></div>
+              <div class="bar-row"><span>Cash Crop</span><div class="bar-track"><div class="bar-fill" style="width:42%;background:#ff4d4f"></div></div></div>
+            </div>
+            <div class="mini-list">
+              <h4>Filters</h4>
+              <p>Year • Region • Crop</p><p>Rainfall • Irrigation</p><p>Area • Production</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="project-content">
+        <span class="project-tag">Power BI • Agriculture Analytics</span>
+        <h3>Agri Dashboard | Karnataka Agriculture Analytics</h3>
+        <p>Interactive agriculture analytics dashboard for crop production, rainfall, irrigation, yield, seasonal performance, cultivated area, and Karnataka agriculture KPIs with dynamic filters and modern visualization.</p>
+        <div class="project-metrics"><span>Dynamic KPIs</span><span>Rainfall Analysis</span><span>Irrigation Insights</span><span>Crop Analytics</span><span>Region Filters</span></div>
+        <div class="project-links"><a href="agri_dashboard_modern_preview.html">Live Preview →</a><a class="secondary" href="agri_dashboard.pbit">Download PBIT →</a></div>
+      </div>
+    </div>
+
+    <!-- ── PROJECT 3: Sales Analytics ── -->
+    <div class="project-card fade-in">
+      <div class="project-img-wrap has-fallback">
+        <span class="preview-badge">POWER BI DASHBOARD</span>
+        <div class="dashboard-mini">
+          <div class="mini-topbar"><div class="mini-title">Sales Analytics</div><div class="mini-pill">Superstore Dataset</div></div>
+          <div class="mini-kpis">
+            <div class="mini-kpi"><small>Total Sales</small><strong>252K</strong></div>
+            <div class="mini-kpi"><small>Profit</small><strong>27K</strong></div>
+            <div class="mini-kpi"><small>Quantity</small><strong>3,529</strong></div>
+          </div>
+          <div class="mini-chart-grid">
+            <div class="mini-chart">
+              <h4>Category Performance</h4>
+              <div class="bar-row"><span>Office</span><div class="bar-track"><div class="bar-fill" style="width:88%;background:#0d6efd"></div></div></div>
+              <div class="bar-row"><span>Tech</span><div class="bar-track"><div class="bar-fill" style="width:70%;background:#00c896"></div></div></div>
+              <div class="bar-row"><span>Furniture</span><div class="bar-track"><div class="bar-fill" style="width:62%;background:#f5a623"></div></div></div>
+            </div>
+            <div class="mini-list">
+              <h4>Insights</h4>
+              <p>Regional sales comparison</p><p>Customer segments</p><p>Monthly sales/profit trend</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="project-content">
+        <span class="project-tag">Power BI • Sales Analytics</span>
+        <h3>Sales Analytics Dashboard</h3>
+        <p>Interactive Power BI dashboard developed using Kaggle Sample Superstore data to analyse sales, profit, quantity, customer behaviour, categories, regions, shipping methods, and business KPIs.</p>
+        <div class="project-metrics"><span>252K Sales</span><span>27K Profit</span><span>3,529 Quantity</span><span>Regional Breakdown</span><span>Customer Reports</span></div>
+        <div class="project-links"><a href="project.html">Live Preview →</a><a class="secondary" href="project.html">View Project →</a></div>
+      </div>
+    </div>
+  </div><!-- /project-grid -->
+
+  <!-- ── FULL-PAGE NIFTY DASHBOARD EMBED ── -->
+  <div id="nifty-fullview" style="margin-top:64px;">
+    <div class="section-title fade-in">
+      <p>FEATURED PROJECT — DEEP DIVE</p>
+      <h2>NIFTY 50 Market Intelligence Dashboard</h2>
+    </div>
+    <div class="nifty-fullview fade-in">
+      <!-- ════════════════════════════════════════════════════════
+           NIFTY 50 PREMIUM DASHBOARD — fully self-contained below
+           ════════════════════════════════════════════════════════ -->
+      <div id="nifty-dashboard-root"></div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ═══════════════ CONTACT ═══════════════ -->
+<section class="contact" id="contact">
+  <div class="section-title fade-in">
+    <p>CONTACT</p>
+    <h2>Let's Work Together</h2>
+  </div>
+  <div class="contact-container fade-in">
+    <form action="https://formsubmit.co/mukeshthatipamula@gmail.com" method="POST">
+      <input type="text"   name="name"    placeholder="Your Name"    required>
+      <input type="email"  name="email"   placeholder="Your Email"   required>
+      <input type="hidden" name="_replyto" value="mukeshthatipamula@gmail.com">
+      <textarea name="message" rows="5"   placeholder="Your Message" required></textarea>
+      <input type="text"   name="_honey"    style="display:none">
+      <input type="hidden" name="_captcha"  value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_subject"  value="New Portfolio Contact Message">
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Mukesh Thatipamula | Data Analyst Portfolio</p>
+</footer>
+
+<!-- ═══════════════ NIFTY 50 DASHBOARD STYLES & HTML ═══════════════ -->
+<style>
+/* Scoped inside #nifty-dashboard-root */
+#nifty-dashboard-root {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 13px;
+  background: #f4f5f7;
+  color: #111827;
+  padding: 20px;
+  border-radius: 16px;
+}
+#nifty-dashboard-root *, #nifty-dashboard-root *::before, #nifty-dashboard-root *::after {
+  box-sizing: border-box;
+}
+#nifty-dashboard-root .db-shell {
+  display: flex; height: 700px;
+  border: 1px solid #e5e7eb; border-radius: 12px;
+  overflow: hidden; background: #f4f5f7;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  max-width: 100%; margin: 0 auto;
+}
+#nifty-dashboard-root .sidebar {
+  width: 58px; background: #ffffff;
+  border-right: 1px solid #e5e7eb;
+  display: flex; flex-direction: column;
+  align-items: center; padding: 14px 0; gap: 4px; flex-shrink: 0;
+}
+#nifty-dashboard-root .sb-logo {
+  width: 34px; height: 34px; background: #1a6ef7; border-radius: 9px;
+  display: flex; align-items: center; justify-content: center; margin-bottom: 14px;
+}
+#nifty-dashboard-root .sb-logo span { color: #fff; font-size: 15px; font-weight: 600; font-family: 'DM Mono', monospace; }
+#nifty-dashboard-root .sb-btn {
+  width: 40px; height: 40px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; border: none; background: transparent; color: #9ca3af;
+  transition: background 0.15s, color 0.15s;
+}
+#nifty-dashboard-root .sb-btn:hover { background: #f0f1f4; color: #6b7280; }
+#nifty-dashboard-root .sb-btn.active { background: #eef3fe; color: #1a6ef7; }
+#nifty-dashboard-root .sb-btn i { font-size: 19px; }
+#nifty-dashboard-root .sb-divider { width: 28px; height: 1px; background: #e5e7eb; margin: 6px 0; }
+#nifty-dashboard-root .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
+#nifty-dashboard-root .topbar {
+  height: 50px; background: #ffffff; border-bottom: 1px solid #e5e7eb;
+  display: flex; align-items: center; padding: 0 18px; gap: 14px; flex-shrink: 0;
+}
+#nifty-dashboard-root .topbar-title { font-size: 14px; font-weight: 600; color: #111827; flex: 1; }
+#nifty-dashboard-root .tb-badge { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; display: flex; align-items: center; gap: 4px; }
+#nifty-dashboard-root .badge-up { background: #e6faf4; color: #00875a; }
+#nifty-dashboard-root .badge-dn { background: #fdecea; color: #c0392b; }
+#nifty-dashboard-root .tb-index { font-size: 11px; color: #9ca3af; }
+#nifty-dashboard-root .tb-index strong { color: #111827; font-weight: 600; font-family: 'DM Mono', monospace; }
+#nifty-dashboard-root .tb-time { font-size: 11px; color: #9ca3af; }
+#nifty-dashboard-root .nav-tabs {
+  display: flex; gap: 2px; padding: 0 16px;
+  background: #ffffff; border-bottom: 1px solid #e5e7eb; flex-shrink: 0;
+}
+#nifty-dashboard-root .nav-tab {
+  padding: 10px 14px; font-size: 12px; font-weight: 400;
+  cursor: pointer; color: #6b7280;
+  border-bottom: 2px solid transparent; white-space: nowrap; transition: color 0.12s;
+}
+#nifty-dashboard-root .nav-tab:hover { color: #111827; }
+#nifty-dashboard-root .nav-tab.active { color: #1a6ef7; border-bottom-color: #1a6ef7; font-weight: 500; }
+#nifty-dashboard-root .page {
+  flex: 1; overflow-y: auto; padding: 16px;
+  display: none; flex-direction: column; gap: 12px; background: #f4f5f7;
+}
+#nifty-dashboard-root .page.active { display: flex; }
+#nifty-dashboard-root .kpi-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
+#nifty-dashboard-root .kpi-card {
+  background: #ffffff; border: 1px solid #e5e7eb;
+  border-radius: 12px; padding: 13px 15px;
+  display: flex; flex-direction: column; gap: 5px;
+}
+#nifty-dashboard-root .kpi-label { font-size: 11px; color: #6b7280; letter-spacing: 0.02em; display: flex; align-items: center; gap: 5px; }
+#nifty-dashboard-root .kpi-val { font-size: 22px; font-weight: 600; color: #111827; line-height: 1.15; font-family: 'DM Mono', monospace; }
+#nifty-dashboard-root .kpi-sub { font-size: 11px; }
+#nifty-dashboard-root .up   { color: #00875a; }
+#nifty-dashboard-root .dn   { color: #c0392b; }
+#nifty-dashboard-root .wrn  { color: #b45309; }
+#nifty-dashboard-root .mute { color: #9ca3af; }
+#nifty-dashboard-root .chart-card {
+  background: #ffffff; border: 1px solid #e5e7eb;
+  border-radius: 12px; padding: 15px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+#nifty-dashboard-root .chart-hdr { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+#nifty-dashboard-root .chart-title { font-size: 13px; font-weight: 500; color: #111827; flex: 1; }
+#nifty-dashboard-root .chip {
+  font-size: 10px; padding: 3px 9px; border-radius: 20px;
+  border: 1px solid #e5e7eb; color: #6b7280; cursor: pointer;
+}
+#nifty-dashboard-root .chip.sel { background: #1a6ef7; border-color: #1a6ef7; color: #fff; }
+#nifty-dashboard-root .row2 { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; }
+#nifty-dashboard-root .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+#nifty-dashboard-root .sector-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; }
+#nifty-dashboard-root .s-name { width: 54px; font-size: 11px; color: #6b7280; flex-shrink: 0; }
+#nifty-dashboard-root .s-track { flex: 1; height: 6px; background: #f0f1f4; border-radius: 3px; overflow: hidden; }
+#nifty-dashboard-root .s-fill  { height: 100%; border-radius: 3px; }
+#nifty-dashboard-root .s-val   { width: 42px; font-size: 11px; text-align: right; font-family: 'DM Mono', monospace; }
+#nifty-dashboard-root .legend-row { display: flex; flex-wrap: wrap; gap: 10px; }
+#nifty-dashboard-root .leg-item { display: flex; align-items: center; gap: 4px; font-size: 10px; color: #6b7280; }
+#nifty-dashboard-root .leg-dot  { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+#nifty-dashboard-root .stock-row {
+  display: flex; align-items: center; padding: 7px 0;
+  border-bottom: 1px solid #f0f1f4; gap: 9px;
+}
+#nifty-dashboard-root .stock-row:last-child { border-bottom: none; }
+#nifty-dashboard-root .s-dot {
+  width: 30px; height: 30px; border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 600; flex-shrink: 0;
+}
+#nifty-dashboard-root .s-info { flex: 1; min-width: 0; }
+#nifty-dashboard-root .s-sym  { font-size: 12px; font-weight: 600; color: #111827; }
+#nifty-dashboard-root .s-full { font-size: 10px; color: #9ca3af; }
+#nifty-dashboard-root .s-price{ font-size: 12px; font-weight: 600; color: #111827; font-family: 'DM Mono', monospace; }
+#nifty-dashboard-root .s-chg  { font-size: 11px; text-align: right; font-family: 'DM Mono', monospace; }
+#nifty-dashboard-root .mini-spark { width: 60px; height: 24px; flex-shrink: 0; }
+#nifty-dashboard-root .pill { display: inline-block; font-size: 10px; padding: 2px 9px; border-radius: 20px; font-weight: 600; white-space: nowrap; }
+#nifty-dashboard-root .pill-buy  { background: #e6faf4; color: #00875a; }
+#nifty-dashboard-root .pill-sell { background: #fdecea; color: #c0392b; }
+#nifty-dashboard-root .pill-hold { background: #fef3e2; color: #b45309; }
+#nifty-dashboard-root .risk-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+#nifty-dashboard-root .risk-item { background: #f8f9fb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px; }
+#nifty-dashboard-root .risk-val  { font-size: 16px; font-weight: 700; letter-spacing: 0.02em; }
+#nifty-dashboard-root .risk-lbl  { font-size: 10px; color: #6b7280; margin-top: 2px; font-family: 'DM Mono', monospace; }
+#nifty-dashboard-root .forecast-row {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 9px 10px; border-radius: 8px;
+  background: #f8f9fb; border: 1px solid #e5e7eb; margin-bottom: 6px;
+}
+#nifty-dashboard-root .fr-icon { width: 32px; height: 32px; border-radius: 7px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+#nifty-dashboard-root .fr-body  { flex: 1; }
+#nifty-dashboard-root .fr-title { font-size: 12px; font-weight: 600; color: #111827; }
+#nifty-dashboard-root .fr-sub   { font-size: 10px; color: #6b7280; margin-top: 2px; line-height: 1.4; }
+#nifty-dashboard-root .fr-action{ font-size: 10px; font-weight: 600; white-space: nowrap; padding-top: 2px; }
+#nifty-dashboard-root .scrollable { overflow-y: auto; max-height: 290px; }
+#nifty-dashboard-root .card-foot  { font-size: 10px; color: #9ca3af; }
+</style>
+
+<!-- Tabler icons for the dashboard -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- ═══════════════ NIFTY DASHBOARD HTML ═══════════════ -->
+<script>
+document.getElementById('nifty-dashboard-root').innerHTML = `
+<div class="db-shell">
+  <div class="sidebar">
+    <div class="sb-logo"><span>N</span></div>
+    <button class="sb-btn active" data-npage="0" title="Executive Overview"><i class="ti ti-layout-dashboard"></i></button>
+    <button class="sb-btn" data-npage="1" title="Stock Performance"><i class="ti ti-chart-line"></i></button>
+    <button class="sb-btn" data-npage="2" title="Risk &amp; Volatility"><i class="ti ti-shield-half"></i></button>
+    <button class="sb-btn" data-npage="3" title="Portfolio Watchlist"><i class="ti ti-eye"></i></button>
+    <button class="sb-btn" data-npage="4" title="Forecast &amp; Insights"><i class="ti ti-telescope"></i></button>
+    <div style="flex:1"></div>
+    <div class="sb-divider"></div>
+    <button class="sb-btn" title="Settings"><i class="ti ti-settings"></i></button>
+  </div>
+
+  <div class="main">
+    <div class="topbar">
+      <span class="topbar-title" id="nifty-page-title">Executive Overview</span>
+      <span class="tb-badge badge-up"><i class="ti ti-trending-up" style="font-size:11px"></i> +1.24% today</span>
+      <span class="tb-index">NIFTY 50: <strong>22,419</strong></span>
+      <span class="tb-time">NSE &middot; May 9, 2026</span>
+    </div>
+
+    <div class="nav-tabs">
+      <div class="nav-tab active" data-npage="0">Overview</div>
+      <div class="nav-tab" data-npage="1">Performance</div>
+      <div class="nav-tab" data-npage="2">Risk &amp; Volatility</div>
+      <div class="nav-tab" data-npage="3">Watchlist</div>
+      <div class="nav-tab" data-npage="4">Forecast</div>
+    </div>
+
+    <!-- PAGE 0 -->
+    <div class="page active" id="npage-0">
+      <div class="kpi-row">
+        <div class="kpi-card"><div class="kpi-label"><i class="ti ti-chart-bar" style="font-size:13px;color:#1a6ef7"></i> NIFTY 50 (All-time)</div><div class="kpi-val">22,419</div><div class="kpi-sub up">&#8593; 14.8&times; from Jan 2000</div></div>
+        <div class="kpi-card"><div class="kpi-label"><i class="ti ti-building-bank" style="font-size:13px;color:#00875a"></i> Sectors Tracked</div><div class="kpi-val">17</div><div class="kpi-sub mute">50 constituent stocks</div></div>
+        <div class="kpi-card"><div class="kpi-label"><i class="ti ti-trending-up" style="font-size:13px;color:#00875a"></i> Top Gainer (2020)</div><div class="kpi-val" style="font-size:17px">PHARMA</div><div class="kpi-sub up">&#8593; +16.0% Mar&ndash;May 2020</div></div>
+        <div class="kpi-card"><div class="kpi-label"><i class="ti ti-trending-down" style="font-size:13px;color:#c0392b"></i> COVID Crash Low</div><div class="kpi-val">7,511</div><div class="kpi-sub dn">&#8595; &minus;38% Mar 23, 2020</div></div>
+      </div>
+      <div class="row2">
+        <div class="chart-card">
+          <div class="chart-hdr"><span class="chart-title">NIFTY 50 &mdash; 20-Year Journey (2000&ndash;2020)</span><span class="chip sel">Close</span><span class="chip">Volume</span></div>
+          <div class="legend-row"><span class="leg-item"><span class="leg-dot" style="background:#1a6ef7"></span>NIFTY 50</span><span class="leg-item"><span class="leg-dot" style="background:#e24b4a;opacity:.6"></span>COVID crash</span></div>
+          <div style="position:relative;height:200px"><canvas id="nc-main"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-hdr"><span class="chart-title">Market Sentiment</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:6px 0">
+            <div style="position:relative;width:120px;height:62px;overflow:hidden"><canvas id="nc-gauge"></canvas></div>
+            <div style="font-size:18px;font-weight:600;color:#00875a;margin-top:-6px">Bullish</div>
+            <div style="font-size:11px;color:#6b7280">P/E: 26.3 &middot; P/B: 3.8 &middot; Div: 1.4%</div>
+          </div>
+          <div style="border-top:1px solid #e5e7eb;padding-top:10px;margin-top:2px">
+            <div class="sector-bar"><span class="s-name">IT</span><div class="s-track"><div class="s-fill" style="width:82%;background:#1a6ef7"></div></div><span class="s-val up">+82%</span></div>
+            <div class="sector-bar"><span class="s-name">Pharma</span><div class="s-track"><div class="s-fill" style="width:74%;background:#00c896"></div></div><span class="s-val up">+74%</span></div>
+            <div class="sector-bar"><span class="s-name">FMCG</span><div class="s-track"><div class="s-fill" style="width:56%;background:#ef9f27"></div></div><span class="s-val wrn">+56%</span></div>
+            <div class="sector-bar"><span class="s-name">Auto</span><div class="s-track"><div class="s-fill" style="width:38%;background:#9ca3af"></div></div><span class="s-val wrn">+38%</span></div>
+            <div class="sector-bar"><span class="s-name">Metal</span><div class="s-track"><div class="s-fill" style="width:20%;background:#e24b4a"></div></div><span class="s-val dn">&minus;12%</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="row3">
+        <div class="chart-card"><div class="chart-title" style="margin-bottom:8px">India VIX &mdash; Fear Index</div><div style="position:relative;height:108px"><canvas id="nc-vix"></canvas></div><div class="card-foot" style="margin-top:4px">Peak: 84.0 on Mar 24, 2020 (COVID)</div></div>
+        <div class="chart-card"><div class="chart-title" style="margin-bottom:8px">Volume Turnover (&#8377; Cr)</div><div style="position:relative;height:108px"><canvas id="nc-vol"></canvas></div><div class="card-foot" style="margin-top:4px">Avg daily: &#8377;8,200 Cr &middot; Peak: &#8377;31,000 Cr</div></div>
+        <div class="chart-card"><div class="chart-title" style="margin-bottom:8px">P/E Ratio Trend</div><div style="position:relative;height:108px"><canvas id="nc-pe"></canvas></div><div class="card-foot" style="margin-top:4px">Range: 14&ndash;32&times; &middot; Fair value: 20&ndash;24&times;</div></div>
+      </div>
+    </div>
+
+    <!-- PAGE 1 -->
+    <div class="page" id="npage-1">
+      <div class="kpi-row">
+        <div class="kpi-card"><div class="kpi-label">Best Single Day</div><div class="kpi-val">+8.97%</div><div class="kpi-sub up">Apr 7, 2020 &mdash; lockdown hope</div></div>
+        <div class="kpi-card"><div class="kpi-label">Worst Single Day</div><div class="kpi-val">&minus;12.98%</div><div class="kpi-sub dn">Mar 23, 2020 (COVID)</div></div>
+        <div class="kpi-card"><div class="kpi-label">30-Day MA vs Price</div><div class="kpi-val">+3.2%</div><div class="kpi-sub up">Bullish crossover signal</div></div>
+        <div class="kpi-card"><div class="kpi-label">Annual Avg Return</div><div class="kpi-val">13.4%</div><div class="kpi-sub up">CAGR 2000&ndash;2020</div></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-hdr"><span class="chart-title">Multi-Index Comparison &mdash; 2020 Recovery</span><span class="chip sel">All Sectors</span><span class="chip">Normalize</span></div>
+        <div class="legend-row"><span class="leg-item"><span class="leg-dot" style="background:#1a6ef7"></span>NIFTY 50</span><span class="leg-item"><span class="leg-dot" style="background:#00c896"></span>Pharma</span><span class="leg-item"><span class="leg-dot" style="background:#ef9f27"></span>IT</span><span class="leg-item"><span class="leg-dot" style="background:#e24b4a"></span>Bank</span><span class="leg-item"><span class="leg-dot" style="background:#9ca3af"></span>Auto</span></div>
+        <div style="position:relative;height:210px"><canvas id="nc-multi"></canvas></div>
+      </div>
+      <div class="row2">
+        <div class="chart-card">
+          <div class="chart-title" style="margin-bottom:8px">Moving Average Analysis</div>
+          <div class="legend-row" style="margin-bottom:6px"><span class="leg-item"><span class="leg-dot" style="background:#1a6ef7"></span>Close</span><span class="leg-item"><span class="leg-dot" style="background:#ef9f27"></span>20-DMA</span><span class="leg-item"><span class="leg-dot" style="background:#e24b4a"></span>50-DMA</span></div>
+          <div style="position:relative;height:148px"><canvas id="nc-ma"></canvas></div>
+        </div>
+        <div class="chart-card"><div class="chart-title" style="margin-bottom:8px">Daily Return Distribution</div><div style="position:relative;height:148px"><canvas id="nc-ret"></canvas></div></div>
+      </div>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div class="page" id="npage-2">
+      <div class="kpi-row">
+        <div class="kpi-card"><div class="kpi-label">Max Drawdown</div><div class="kpi-val dn">&minus;38%</div><div class="kpi-sub dn">Peak-to-trough 2020</div></div>
+        <div class="kpi-card"><div class="kpi-label">Volatility (Ann.)</div><div class="kpi-val wrn">28.4%</div><div class="kpi-sub mute">&sigma; daily returns &times;&radic;252</div></div>
+        <div class="kpi-card"><div class="kpi-label">Sharpe Ratio (est.)</div><div class="kpi-val up">0.82</div><div class="kpi-sub up">Return/risk above R<sub>f</sub></div></div>
+        <div class="kpi-card"><div class="kpi-label">Recovery Days</div><div class="kpi-val">153</div><div class="kpi-sub up">Mar 23 &rarr; Aug 2020</div></div>
+      </div>
+      <div class="row2">
+        <div class="chart-card">
+          <div class="chart-hdr"><span class="chart-title">Risk-Return Scatter &mdash; Sector Matrix</span></div>
+          <div class="legend-row" style="margin-bottom:6px"><span class="leg-item"><span class="leg-dot" style="background:#00c896"></span>High return</span><span class="leg-item"><span class="leg-dot" style="background:#ef9f27"></span>Moderate</span><span class="leg-item"><span class="leg-dot" style="background:#e24b4a"></span>High risk</span></div>
+          <div style="position:relative;height:215px"><canvas id="nc-scatter"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title" style="margin-bottom:10px">Sector Risk Scorecard</div>
+          <div class="risk-grid">
+            <div class="risk-item"><div class="risk-val up">LOW</div><div style="font-size:12px;font-weight:600;margin:3px 0">PHARMA</div><div class="risk-lbl">&beta;=0.62 &middot; Sharpe 1.1</div></div>
+            <div class="risk-item"><div class="risk-val up">LOW</div><div style="font-size:12px;font-weight:600;margin:3px 0">IT</div><div class="risk-lbl">&beta;=0.74 &middot; Sharpe 0.98</div></div>
+            <div class="risk-item"><div class="risk-val wrn">MED</div><div style="font-size:12px;font-weight:600;margin:3px 0">FMCG</div><div class="risk-lbl">&beta;=0.81 &middot; Sharpe 0.77</div></div>
+            <div class="risk-item"><div class="risk-val wrn">MED</div><div style="font-size:12px;font-weight:600;margin:3px 0">AUTO</div><div class="risk-lbl">&beta;=1.05 &middot; Sharpe 0.54</div></div>
+            <div class="risk-item"><div class="risk-val dn">HIGH</div><div style="font-size:12px;font-weight:600;margin:3px 0">BANK</div><div class="risk-lbl">&beta;=1.28 &middot; Sharpe 0.41</div></div>
+            <div class="risk-item"><div class="risk-val dn">HIGH</div><div style="font-size:12px;font-weight:600;margin:3px 0">METAL</div><div class="risk-lbl">&beta;=1.45 &middot; Sharpe 0.22</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-hdr"><span class="chart-title">30-Day Rolling Volatility &mdash; All Indices 2020</span></div>
+        <div style="position:relative;height:128px"><canvas id="nc-rollvol"></canvas></div>
+      </div>
+    </div>
+
+    <!-- PAGE 3 -->
+    <div class="page" id="npage-3">
+      <div class="kpi-row">
+        <div class="kpi-card"><div class="kpi-label">Watchlist Stocks</div><div class="kpi-val">8</div><div class="kpi-sub mute">Across 6 sectors</div></div>
+        <div class="kpi-card"><div class="kpi-label">Buy Signals</div><div class="kpi-val up">3</div><div class="kpi-sub up">Strong uptrend</div></div>
+        <div class="kpi-card"><div class="kpi-label">Hold Signals</div><div class="kpi-val wrn">3</div><div class="kpi-sub mute">Consolidation phase</div></div>
+        <div class="kpi-card"><div class="kpi-label">Sell Signals</div><div class="kpi-val dn">2</div><div class="kpi-sub dn">Downtrend detected</div></div>
+      </div>
+      <div class="row2">
+        <div class="chart-card">
+          <div class="chart-hdr"><span class="chart-title">Portfolio Watchlist</span></div>
+          <div class="scrollable">
+            <div class="stock-row"><div class="s-dot" style="background:#eef3fe;color:#1a6ef7">IT</div><div class="s-info"><div class="s-sym">NIFTY IT</div><div class="s-full">Information Technology</div></div><svg class="mini-spark" viewBox="0 0 60 24"><polyline points="0,20 10,18 20,14 30,12 40,8 50,6 60,4" fill="none" stroke="#00c896" stroke-width="1.5"/></svg><div><div class="s-price">17,842</div><div class="s-chg up">+2.4%</div></div><span class="pill pill-buy">BUY</span></div>
+            <div class="stock-row"><div class="s-dot" style="background:#e6faf4;color:#00875a">PH</div><div class="s-info"><div class="s-sym">NIFTY PHARMA</div><div class="s-full">Pharmaceutical</div></div><svg class="mini-spark" viewBox="0 0 60 24"><polyline points="0,20 10,16 20,12 30,10 40,8 50,5 60,3" fill="none" stroke="#00c896" stroke-width="1.5"/></svg><div><div class="s-price">9,602</div><div class="s-chg up">+1.8%</div></div><span class="pill pill-buy">BUY</span></div>
+            <div class="stock-row"><div class="s-dot" style="background:#fef3e2;color:#b45309">FM</div><div class="s-info"><div class="s-sym">NIFTY FMCG</div><div class="s-full">Consumer Goods</div></div><svg class="mini-spark" viewBox="0 0 60 24"><polyline points="0,12 10,14 20,11 30,13 40,12 50,11 60,12" fill="none" stroke="#ef9f27" stroke-width="1.5"/></svg><div><div class="s-price">22,104</div><div class="s-chg wrn">+0.3%</div></div><span class="pill pill-hold">HOLD</span></div>
+            <div class="stock-row"><div class="s-dot" style="background:#fef3e2;color:#b45309">50</div><div class="s-info"><div class="s-sym">NIFTY 50</div><div class="s-full">Benchmark Index</div></div><svg class="mini-spark" viewBox="0 0 60 24"><polyline points="0,14 10,12 20,14 30,10 40,12 50,10 60,11" fill="none" stroke="#ef9f27" stroke-width="1.5"/></svg><div><div class="s-price">22,419</div><div class="s-chg wrn">+0.8%</div></div><span class="pill pill-hold">HOLD</span></div>
+            <div class="stock-row"><div class="s-dot" style="background:#fdecea;color:#c0392b">BK</div><div class="s-info"><div class="s-sym">NIFTY BANK</div><div class="s-full">Banking Sector</div></div><svg class="mini-spark" viewBox="0 0 60 24"><polyline points="0,8 10,12 20,16 30,14 40,18 50,20 60,22" fill="none" stroke="#e24b4a" stroke-width="1.5"/></svg><div><div class="s-price">18,233</div><div class="s-chg dn">&minus;1.2%</div></div><span class="pill pill-sell">SELL</span></div>
+            <div class="stock-row"><div class="s-dot" style="background:#fdecea;color:#c0392b">MT</div><div class="s-info"><div class="s-sym">NIFTY METAL</div><div class="s-full">Metals &amp; Mining</div></div><svg class="mini-spark" viewBox="0 0 60 24"><polyline points="0,6 10,10 20,14 30,16 40,18 50,21 60,22" fill="none" stroke="#e24b4a" stroke-width="1.5"/></svg><div><div class="s-price">4,872</div><div class="s-chg dn">&minus;2.1%</div></div><span class="pill pill-sell">SELL</span></div>
+            <div class="stock-row"><div class="s-dot" style="background:#eef3fe;color:#1a6ef7">AU</div><div class="s-info"><div class="s-sym">NIFTY AUTO</div><div class="s-full">Automobile</div></div><svg class="mini-spark" viewBox="0 0 60 24"><polyline points="0,18 10,16 20,14 30,15 40,13 50,12 60,14" fill="none" stroke="#ef9f27" stroke-width="1.5"/></svg><div><div class="s-price">9,108</div><div class="s-chg wrn">+0.6%</div></div><span class="pill pill-hold">HOLD</span></div>
+            <div class="stock-row"><div class="s-dot" style="background:#eef3fe;color:#1a6ef7">MN</div><div class="s-info"><div class="s-sym">NIFTY MIDCAP</div><div class="s-full">Mid-cap 150</div></div><svg class="mini-spark" viewBox="0 0 60 24"><polyline points="0,18 10,15 20,12 30,10 40,8 50,7 60,5" fill="none" stroke="#00c896" stroke-width="1.5"/></svg><div><div class="s-price">31,420</div><div class="s-chg up">+1.6%</div></div><span class="pill pill-buy">BUY</span></div>
+          </div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title" style="margin-bottom:8px">Portfolio Allocation</div>
+          <div style="position:relative;height:158px"><canvas id="nc-alloc"></canvas></div>
+          <div class="legend-row" style="margin-top:8px">
+            <span class="leg-item"><span class="leg-dot" style="background:#1a6ef7"></span>IT 28%</span>
+            <span class="leg-item"><span class="leg-dot" style="background:#00c896"></span>Pharma 22%</span>
+            <span class="leg-item"><span class="leg-dot" style="background:#ef9f27"></span>FMCG 18%</span>
+            <span class="leg-item"><span class="leg-dot" style="background:#9ca3af"></span>Auto 10%</span>
+            <span class="leg-item"><span class="leg-dot" style="background:#e24b4a"></span>Others 22%</span>
+          </div>
+          <div style="border-top:1px solid #e5e7eb;padding-top:10px;margin-top:8px">
+            <div class="card-foot" style="margin-bottom:6px">Performance attribution</div>
+            <div class="sector-bar"><span class="s-name">IT</span><div class="s-track"><div class="s-fill" style="width:85%;background:#1a6ef7"></div></div><span class="s-val up">+8.4%</span></div>
+            <div class="sector-bar"><span class="s-name">Pharma</span><div class="s-track"><div class="s-fill" style="width:78%;background:#00c896"></div></div><span class="s-val up">+6.2%</span></div>
+            <div class="sector-bar"><span class="s-name">FMCG</span><div class="s-track"><div class="s-fill" style="width:50%;background:#ef9f27"></div></div><span class="s-val wrn">+2.1%</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE 4 -->
+    <div class="page" id="npage-4">
+      <div class="kpi-row">
+        <div class="kpi-card"><div class="kpi-label">12-Month Target</div><div class="kpi-val up">25,800</div><div class="kpi-sub up">+15.1% upside</div></div>
+        <div class="kpi-card"><div class="kpi-label">Bull Case</div><div class="kpi-val up">28,500</div><div class="kpi-sub up">+27.1% scenario</div></div>
+        <div class="kpi-card"><div class="kpi-label">Bear Case</div><div class="kpi-val dn">19,200</div><div class="kpi-sub dn">&minus;14.4% downside</div></div>
+        <div class="kpi-card"><div class="kpi-label">Confidence</div><div class="kpi-val wrn">71%</div><div class="kpi-sub mute">Model accuracy</div></div>
+      </div>
+      <div class="row2">
+        <div class="chart-card">
+          <div class="chart-hdr"><span class="chart-title">Trend Projection &mdash; Next 12 Months</span></div>
+          <div class="legend-row" style="margin-bottom:4px"><span class="leg-item"><span class="leg-dot" style="background:#1a6ef7"></span>Base</span><span class="leg-item"><span class="leg-dot" style="background:#00c896"></span>Bull</span><span class="leg-item"><span class="leg-dot" style="background:#e24b4a"></span>Bear</span></div>
+          <div style="position:relative;height:195px"><canvas id="nc-forecast"></canvas></div>
+        </div>
+        <div class="chart-card" style="gap:7px">
+          <div class="chart-title">Smart Investment Insights</div>
+          <div class="forecast-row"><div class="fr-icon" style="background:#e6faf4"><i class="ti ti-thumb-up" style="font-size:16px;color:#00875a"></i></div><div class="fr-body"><div class="fr-title">STRONG BUY &mdash; IT &amp; Pharma</div><div class="fr-sub">Post-COVID digital acceleration continues; defensive pharma provides stability</div></div><div class="fr-action up">&#8593; Strong</div></div>
+          <div class="forecast-row"><div class="fr-icon" style="background:#eef3fe"><i class="ti ti-chart-line" style="font-size:16px;color:#1a6ef7"></i></div><div class="fr-body"><div class="fr-title">ACCUMULATE &mdash; Midcap 150</div><div class="fr-sub">Smallcap recovery underway; risk-adjusted return favourable at current levels</div></div><div class="fr-action up">&#8593; Good</div></div>
+          <div class="forecast-row"><div class="fr-icon" style="background:#fef3e2"><i class="ti ti-minus" style="font-size:16px;color:#b45309"></i></div><div class="fr-body"><div class="fr-title">HOLD &mdash; FMCG &amp; Auto</div><div class="fr-sub">Recovery moderate; await earnings guidance clarity for rerating</div></div><div class="fr-action wrn">&rarr; Neutral</div></div>
+          <div class="forecast-row"><div class="fr-icon" style="background:#fdecea"><i class="ti ti-alert-triangle" style="font-size:16px;color:#c0392b"></i></div><div class="fr-body"><div class="fr-title">CAUTION &mdash; Banking &amp; Metal</div><div class="fr-sub">NPA pressure on banks; metal demand linked to global slowdown risk</div></div><div class="fr-action dn">&#8595; Weak</div></div>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-hdr"><span class="chart-title">Historical CAGR by Holding Period (NIFTY 50)</span></div>
+        <div style="position:relative;height:108px"><canvas id="nc-cagr"></canvas></div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+</script>
+
+<!-- ═══════════════ ALL SCRIPTS ═══════════════ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+// ── Scroll-fade observer ──
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// ── NIFTY Dashboard navigation ──
+const nPages  = document.querySelectorAll('#nifty-dashboard-root .page');
+const nSbBtns = document.querySelectorAll('#nifty-dashboard-root .sb-btn[data-npage]');
+const nTabs   = document.querySelectorAll('#nifty-dashboard-root .nav-tab[data-npage]');
+const nTitles = ['Executive Overview','Stock Performance','Risk & Volatility','Portfolio Watchlist','Forecast & Insights'];
+
+function switchNPage(n) {
+  nPages.forEach((p,i)   => p.classList.toggle('active', i===n));
+  nSbBtns.forEach((b,i)  => b.classList.toggle('active', i===n));
+  nTabs.forEach((t,i)    => t.classList.toggle('active', i===n));
+  const el = document.getElementById('nifty-page-title');
+  if(el) el.textContent = nTitles[n];
+}
+nSbBtns.forEach(b => b.addEventListener('click', () => switchNPage(+b.dataset.npage)));
+nTabs.forEach(t   => t.addEventListener('click', () => switchNPage(+t.dataset.npage)));
+
+// ── Chart defaults ──
+const TICK = { color:'#9ca3af', font:{size:10} };
+const GX   = { grid:{display:false}, ticks:TICK };
+const GY   = { grid:{color:'rgba(0,0,0,0.05)'}, ticks:TICK };
+const DEF  = { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, elements:{point:{radius:0}} };
+
+// ── Page 0 charts ──
+const years = ['2000','2002','2004','2006','2008','2010','2012','2014','2016','2018','2020'];
+const niftyClose = [1592,1068,1786,3402,2959,6135,5905,8283,7963,10387,12168];
+
+new Chart(document.getElementById('nc-main'), {
+  type:'line',
+  data:{ labels:years, datasets:[{ data:niftyClose, borderColor:'#1a6ef7', borderWidth:2, fill:true, backgroundColor:'rgba(26,110,247,0.07)', tension:0.4, pointRadius:0 }]},
+  options:{ ...DEF, scales:{ x:GX, y:{ ...GY, ticks:{...TICK, callback:v=>v>=1000?(v/1000).toFixed(0)+'K':v }}}}
+});
+new Chart(document.getElementById('nc-gauge'), {
+  type:'doughnut',
+  data:{ labels:['Bullish','Neutral','Bearish'], datasets:[{ data:[68,20,12], backgroundColor:['#00c896','#ef9f27','#e24b4a'], borderWidth:0, circumference:180, rotation:270 }]},
+  options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false},tooltip:{enabled:false}}, cutout:'74%' }
+});
+const vixData=[15.2,18.4,84.0,42.1,28.3];
+new Chart(document.getElementById('nc-vix'), {
+  type:'bar',
+  data:{ labels:['Jan','Feb','Mar','Apr','May'], datasets:[{ data:vixData, backgroundColor:vixData.map(v=>v>50?'#e24b4a':v>25?'#ef9f27':'#1a6ef7'), borderRadius:3 }]},
+  options:{ ...DEF, scales:{x:GX,y:GY} }
+});
+new Chart(document.getElementById('nc-vol'), {
+  type:'bar',
+  data:{ labels:['2015','2016','2017','2018','2019','2020'], datasets:[{ data:[4200,5100,6800,7200,6900,31000], backgroundColor:'rgba(26,110,247,0.7)', borderRadius:3 }]},
+  options:{ ...DEF, scales:{ x:GX, y:{ ...GY, ticks:{...TICK,callback:v=>(v/1000).toFixed(0)+'K'}}}}
+});
+new Chart(document.getElementById('nc-pe'), {
+  type:'line',
+  data:{ labels:years, datasets:[{ data:[25.9,15.2,17.4,23.1,14.8,22.2,18.3,20.4,22.1,26.3,33.2], borderColor:'#ef9f27', borderWidth:2, fill:true, backgroundColor:'rgba(239,159,39,0.07)', tension:0.4, pointRadius:0 }]},
+  options:{ ...DEF, scales:{x:GX,y:GY} }
+});
+
+// ── Page 1 charts ──
+const m20=['Jan','Feb','Mar','Apr','May'];
+new Chart(document.getElementById('nc-multi'), {
+  type:'line',
+  data:{ labels:m20, datasets:[
+    { data:[12168,11202,7511,9860,12168], borderColor:'#1a6ef7', borderWidth:2, tension:0.4, pointRadius:3, fill:false },
+    { data:[8047,7576,6432,8800,9343],   borderColor:'#00c896', borderWidth:2, tension:0.4, pointRadius:3, fill:false },
+    { data:[15200,13900,10800,14200,16800],borderColor:'#ef9f27',borderWidth:2, tension:0.4, pointRadius:3, fill:false },
+    { data:[31200,27400,17880,22100,24800],borderColor:'#e24b4a',borderWidth:2, tension:0.4, pointRadius:3, fill:false },
+    { data:[8200,7100,4900,6400,7800],   borderColor:'#9ca3af', borderWidth:2, tension:0.4, pointRadius:3, fill:false }
+  ]},
+  options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{x:GX,y:{...GY,ticks:{...TICK,callback:v=>(v/1000).toFixed(1)+'K'}}}}
+});
+new Chart(document.getElementById('nc-ma'), {
+  type:'line',
+  data:{ labels:m20, datasets:[
+    { data:[12168,11202,7511,9860,12168], borderColor:'#1a6ef7', borderWidth:2, tension:0.3, pointRadius:0, fill:false },
+    { data:[11800,11400,9200,8400,10200], borderColor:'#ef9f27', borderWidth:1.5, borderDash:[4,3], tension:0.3, pointRadius:0, fill:false },
+    { data:[11500,11200,10100,9000,9800], borderColor:'#e24b4a', borderWidth:1.5, borderDash:[2,3], tension:0.3, pointRadius:0, fill:false }
+  ]},
+  options:{ ...DEF, scales:{x:GX,y:{...GY,ticks:{...TICK,callback:v=>(v/1000).toFixed(1)+'K'}}}}
+});
+new Chart(document.getElementById('nc-ret'), {
+  type:'bar',
+  data:{ labels:['-10%','-8%','-6%','-4%','-2%','0%','+2%','+4%','+6%','+8%','+10%'], datasets:[{ data:[2,4,8,22,45,60,48,25,10,5,2], backgroundColor:'rgba(26,110,247,0.65)', borderRadius:2 }]},
+  options:{ ...DEF, scales:{x:{...GX,ticks:{color:'#9ca3af',font:{size:9}}},y:GY}}
+});
+
+// ── Page 2 charts ──
+new Chart(document.getElementById('nc-scatter'), {
+  type:'bubble',
+  data:{ datasets:[
+    { label:'IT',    data:[{x:18,y:82,r:14}],  backgroundColor:'rgba(26,110,247,0.75)' },
+    { label:'Pharma',data:[{x:14,y:74,r:12}],  backgroundColor:'rgba(0,200,150,0.75)' },
+    { label:'FMCG',  data:[{x:16,y:56,r:10}],  backgroundColor:'rgba(239,159,39,0.75)' },
+    { label:'Auto',  data:[{x:26,y:38,r:9}],   backgroundColor:'rgba(156,163,175,0.75)' },
+    { label:'Bank',  data:[{x:34,y:22,r:11}],  backgroundColor:'rgba(226,75,74,0.65)' },
+    { label:'Metal', data:[{x:42,y:-12,r:8}],  backgroundColor:'rgba(226,75,74,0.9)' }
+  ]},
+  options:{ responsive:true, maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label+': Risk '+c.parsed.x+'% / Return '+c.parsed.y+'%'}}},
+    scales:{ x:{...GY,min:8,max:50,title:{display:true,text:'Risk (Volatility %)',color:'#9ca3af',font:{size:10}}},
+             y:{...GY,min:-25,max:110,title:{display:true,text:'Return (%)',color:'#9ca3af',font:{size:10}}}}
+  }
+});
+new Chart(document.getElementById('nc-rollvol'), {
+  type:'line',
+  data:{ labels:m20, datasets:[
+    { data:[15,18,84,42,28], borderColor:'#e24b4a', borderWidth:2, tension:0.4, pointRadius:0, fill:true, backgroundColor:'rgba(226,75,74,0.07)' },
+    { data:[12,14,60,30,22], borderColor:'#1a6ef7', borderWidth:1.5, borderDash:[3,3], tension:0.4, pointRadius:0, fill:false }
+  ]},
+  options:{ ...DEF, scales:{x:GX,y:{...GY,suggestedMax:100}}}
+});
+
+// ── Page 3 chart ──
+new Chart(document.getElementById('nc-alloc'), {
+  type:'doughnut',
+  data:{ labels:['IT','Pharma','FMCG','Auto','Others'],
+    datasets:[{ data:[28,22,18,10,22], backgroundColor:['#1a6ef7','#00c896','#ef9f27','#9ca3af','#e24b4a'], borderWidth:2, borderColor:'#ffffff' }]},
+  options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, cutout:'65%' }
+});
+
+// ── Page 4 charts ──
+const fL=['Now','M1','M2','M3','M4','M5','M6','M7','M8','M9','M10','M11','M12'];
+const fB=[22419,22700,22900,23100,23400,23600,23900,24200,24500,24800,25100,25400,25800];
+const fU=[22419,23100,23600,24200,24800,25400,26000,26500,27000,27400,27900,28200,28500];
+const fD=[22419,22100,21800,21400,21000,20600,20200,19900,19600,19400,19200,19200,19200];
+new Chart(document.getElementById('nc-forecast'), {
+  type:'line',
+  data:{ labels:fL, datasets:[
+    { label:'Base', data:fB, borderColor:'#1a6ef7', borderWidth:2, tension:0.4, pointRadius:0, fill:false },
+    { label:'Bull', data:fU, borderColor:'#00c896', borderWidth:1.5, borderDash:[5,3], tension:0.4, pointRadius:0, fill:'+0', backgroundColor:'rgba(0,200,150,0.06)' },
+    { label:'Bear', data:fD, borderColor:'#e24b4a', borderWidth:1.5, borderDash:[5,3], tension:0.4, pointRadius:0, fill:false }
+  ]},
+  options:{ ...DEF, scales:{x:GX,y:{...GY,ticks:{...TICK,callback:v=>(v/1000).toFixed(0)+'K'}}}}
+});
+const cv=[70,-38,9.8,12.1,13.7,13.2,14.8];
+new Chart(document.getElementById('nc-cagr'), {
+  type:'bar',
+  data:{ labels:['1-Yr (best)','1-Yr (worst)','3-Yr avg','5-Yr avg','10-Yr avg','15-Yr avg','20-Yr CAGR'],
+    datasets:[{ data:cv, backgroundColor:cv.map(v=>v<0?'rgba(226,75,74,0.75)':'rgba(26,110,247,0.72)'), borderRadius:3 }]},
+  options:{ ...DEF, scales:{x:{...GX,ticks:{color:'#9ca3af',font:{size:9}}},y:{...GY,ticks:{...TICK,callback:v=>v+'%'}}}}
+});
+</script>
